@@ -55,7 +55,7 @@ app/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/url-shortener.git
+git clone git@github.com:AdityaManojShinde/Url_Shortner_API.git
 cd url-shortener
 ```
 
