@@ -23,4 +23,4 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 # db session dependency injection
-DBSession = Annotated[Session, Depends(get_db_session())]
+DBSession = Annotated[Session, Depends(get_db_session)]

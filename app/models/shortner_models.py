@@ -4,7 +4,7 @@ from uuid import UUID
 
 class ShortnerReq(BaseModel):
     # inforce 2000 char limit
-    url: str = Field(...,max_length=2000)
+    url: str = Field(...,max_length=2000, examples=["https://sqlmodel.tiangolo.com/tutorial/insert/"])
 
     @field_validator("url")
     @classmethod

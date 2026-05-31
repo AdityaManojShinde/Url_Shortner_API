@@ -3,7 +3,13 @@ from datetime import datetime
 from app.api.v1 import url_shortner
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.db.session import create_db_and_tables
+from app.db.session import create_db_and_tables, DBSession
+from app.db.schema import ShortUrl
+from sqlmodel import select
+from fastapi.responses import RedirectResponse
+from fastapi import HTTPException, status
+from sqlalchemy.exc import SQLAlchemyError
+
 
 
 
@@ -43,5 +49,32 @@ def root():
     }
 
 @app.get("/{short_code}")
-def get_shorten_url(short_code: str):
-    return {"msg": short_code}
+def get_shorten_url(
+    short_code: str,
+    db_session: DBSession,
+):
+    
+    try: 
+        record = db_session.exec(
+            select(ShortUrl).where(
+                ShortUrl.short_code == short_code
+            )
+        ).first()
+
+        
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Database error",
+        )
+    
+    if record is None:
+            raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Short URL not found",
+            )
+
+    return RedirectResponse(
+        url=record.url,
+        status_code=307,
+    )
