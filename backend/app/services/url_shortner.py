@@ -7,7 +7,10 @@ from sqlalchemy.exc import IntegrityError
 from app.db.schema import ShortUrl, User
 from app.db.session import DBSession
 from app.models.shortner_models import ShortnerRes
-
+from app.models.urls import (
+    UserUrlItem,
+    UserUrlsResponse,
+)
 
 def generate_short_code() -> str:
     """Generate a random short code."""
@@ -111,4 +114,28 @@ def shorten_url(
         url=url,
         short_code=short_code,
         short_url=short_url,
+    )
+
+
+def get_user_urls(
+    user: User,
+    db: DBSession,
+) -> UserUrlsResponse:
+    """Fetch all URLs created by a user."""
+
+    records = db.exec(
+        select(ShortUrl)
+        .where(ShortUrl.user_id == user.id)
+        .order_by(ShortUrl.created_at.desc())
+    ).all()
+
+    return UserUrlsResponse(
+        urls=[
+            UserUrlItem(
+                id=record.id,
+                url=record.url,
+                short_code=record.short_code,
+            )
+            for record in records
+        ]
     )
