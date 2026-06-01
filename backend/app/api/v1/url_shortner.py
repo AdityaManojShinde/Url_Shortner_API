@@ -2,7 +2,6 @@ from fastapi import APIRouter, Request
 from app.models.shortner_models import ShortnerReq, ShortnerRes
 from app.services.url_shortner import shorten_url
 from app.db.session import DBSession
-from app.db.schema import ShortUrl
 
 
 
@@ -18,17 +17,6 @@ def shortner_root():
         "message": "url shortner api"
     }
 
-
-"""
-TODO: 
-- check if unique short code already exits in db []
-- store short code in db []
-- return short code url []
-
-create schema 
-create db session
-apply it
-"""
 @router.post("/")
 def create_shorten_url(
     payload: ShortnerReq, 

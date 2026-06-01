@@ -49,7 +49,7 @@ def build_short_url(
     """Build the public short URL."""
     return (
         str(req.base_url).rstrip("/")
-        + "/"
+        + "/r/"
         + short_code
     )
 

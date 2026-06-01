@@ -48,7 +48,7 @@ def root():
         "timestamp": datetime.now().isoformat()
     }
 
-@app.get("/{short_code}")
+@app.get("/r/{short_code}")
 def get_shorten_url(
     short_code: str,
     db_session: DBSession,
