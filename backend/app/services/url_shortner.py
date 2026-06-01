@@ -4,7 +4,7 @@ from fastapi import Request
 from sqlmodel import select
 from sqlalchemy.exc import IntegrityError
 
-from app.db.schema import ShortUrl
+from app.db.schema import ShortUrl, User
 from app.db.session import DBSession
 from app.models.shortner_models import ShortnerRes
 
@@ -58,12 +58,13 @@ def save_short_url(
     url: str,
     short_code: str,
     db: DBSession,
+    user: User | None = None
 ) -> ShortUrl:
     """Persist URL mapping to database."""
 
     try:
         record = ShortUrl(
-            user_id=None,
+            user_id=user.id if user else None,
             url=url,
             short_code=short_code,
         )
@@ -87,6 +88,7 @@ def shorten_url(
     url: str,
     req: Request,
     db: DBSession,
+    user: User | None = None,
 ) -> ShortnerRes:
     """Create and store a shortened URL."""
 
@@ -96,6 +98,7 @@ def shorten_url(
         url=url,
         short_code=short_code,
         db=db,
+        user=user
     )
 
     short_url = build_short_url(

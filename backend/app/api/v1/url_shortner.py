@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Request
-from app.models.shortner_models import ShortnerReq, ShortnerRes
-from app.services.url_shortner import shorten_url
-from app.db.session import DBSession
 
+from app.db.session import DBSession
+from app.models.shortner_models import ShortnerReq, ShortnerRes
+from app.services.auth_service import CurrentUserOptional
+from app.services.url_shortner import shorten_url
 
 
 router = APIRouter(
@@ -17,11 +18,20 @@ def shortner_root():
         "message": "url shortner api"
     }
 
-@router.post("/")
+
+@router.post("/", response_model=ShortnerRes)
 def create_shorten_url(
-    payload: ShortnerReq, 
+    payload: ShortnerReq,
     request: Request,
-    db_session: DBSession
-    ) -> ShortnerRes:
-    response = shorten_url(url=payload.url, req=request, db=db_session)
+    db_session: DBSession,
+    user: CurrentUserOptional
+) -> ShortnerRes:
+
+    response = shorten_url(
+        url=payload.url,
+        req=request,
+        db=db_session,
+        user=user
+    )
+
     return response

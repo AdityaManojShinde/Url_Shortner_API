@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from datetime import datetime
+
 from app.api.v1 import url_shortner
+from app.api.v1 import auth
+
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.db.session import create_db_and_tables, DBSession
@@ -39,6 +42,7 @@ app.add_middleware(
 )
 
 app.include_router(url_shortner.router)
+app.include_router(auth.router)
 
 
 @app.get("/")
