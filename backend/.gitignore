@@ -121,3 +121,5 @@ docker-compose.override.yml
 .local/
 .cache/
 
+# cloud
+.fastapicloud/

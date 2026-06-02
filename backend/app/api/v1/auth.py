@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-
 from app.db.session import DBSession
 from app.models.auth import (
     SignUpUserReq,
@@ -56,12 +55,12 @@ def signup_user(
     response_model=LoginUserRes
 )
 def login_user(
-    user: LoginUserReq,
-    db: DBSession
+    db: DBSession,
+    form_data: LoginUserReq
 ) -> LoginUserRes:
 
     return auth_service.login(
-        email=user.email,
-        password=user.password,
+        email=form_data.email,
+        password=form_data.password,
         db=db
     )
