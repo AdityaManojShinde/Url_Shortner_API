@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -20,7 +21,7 @@ export function AuthProvider({ children }) {
 
   const fetchUser = async (authToken) => {
     try {
-      const response = await fetch("/api/auth/me", {
+      const response = await fetch(`${API_URL}/auth/me`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

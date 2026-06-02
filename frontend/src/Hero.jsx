@@ -3,6 +3,8 @@ import { LucideArrowBigRight, Copy, Check } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { useAuth } from "./context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Hero() {
     const [url, setUrl] = useState("");
     const [shortUrl, setShortUrl] = useState("");
@@ -27,7 +29,7 @@ function Hero() {
         }
 
         try {
-            const response = await fetch("/api/shortner/", {
+            const response = await fetch(`${API_URL}/shortner/`, {
                 method: "POST",
                 headers,
                 body: JSON.stringify({ url }),

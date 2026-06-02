@@ -13,6 +13,8 @@ import {
 } from "../components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function MyUrls() {
   const { token } = useAuth();
   const [urls, setUrls] = useState([]);
@@ -26,7 +28,7 @@ export default function MyUrls() {
 
   const fetchUrls = async () => {
     try {
-      const response = await fetch("/api/shortner/", {
+      const response = await fetch(`${API_URL}/shortner/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +48,7 @@ export default function MyUrls() {
   };
 
   const handleCopy = (shortCode, id) => {
-    const fullUrl = `https://urlshortnerapi.fastapicloud.dev/r/${shortCode}`;
+    const fullUrl = `${API_URL}/r/${shortCode}`;
     navigator.clipboard.writeText(fullUrl);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -97,7 +99,7 @@ export default function MyUrls() {
                 <TableBody>
                   {urls.map((urlItem) => (
                     <TableRow key={urlItem.id}>
-                      <TableCell className="max-w-[200px] sm:max-w-[300px] truncate" title={urlItem.url}>
+                      <TableCell className="max-w-50 sm:max-w-75 truncate" title={urlItem.url}>
                         {urlItem.url}
                       </TableCell>
                       <TableCell className="font-medium">
