@@ -34,7 +34,8 @@ app.add_middleware(
         "http://127.0.0.1:8000",
         "http://localhost:8000",
         "http://localhost:3000",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:3000",
+        "https://project-97nl0.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],

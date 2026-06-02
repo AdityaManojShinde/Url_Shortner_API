@@ -64,7 +64,7 @@ function Hero() {
     return (
         <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-160px)] px-4 py-20 overflow-hidden">
             {/* Background Glows */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] md:w-[800px] bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full -z-10 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 md:w-200 bg-linear-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full -z-10 pointer-events-none" />
 
             <div className="text-center max-w-3xl relative z-10">
                 <div className="inline-flex items-center rounded-full border border-border bg-background/50 dark:bg-muted/50 backdrop-blur-md px-4 py-1.5 text-sm font-medium mb-8 text-foreground shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-700">
@@ -74,7 +74,7 @@ function Hero() {
                 
                 <h1 className="text-5xl md:text-7xl font-extrabold text-foreground mb-6 tracking-tight leading-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
                     Shorten Your Links. <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
                         Expand Your Reach.
                     </span>
                 </h1>
